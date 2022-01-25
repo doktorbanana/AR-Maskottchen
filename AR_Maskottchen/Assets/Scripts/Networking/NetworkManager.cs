@@ -9,6 +9,20 @@ namespace Maskottchen.Networking{
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
 
+    #region Public Variables
+    public GameObject playerPrefab;
+
+    #endregion
+
+    #region Unity Callbacks
+
+    void Start()
+    {
+        PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(Random.Range(-1,1),0,-5), Quaternion.identity, 0);
+    }
+
+    #endregion
+
     #region PhotonCallbacks
      
     public override void OnLeftRoom()
