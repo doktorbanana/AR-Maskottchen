@@ -14,10 +14,26 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private byte maxPlayersPerRoom = 4;
 
-    [Tooltip("Ladebalken UI Panel")]
+    [Tooltip("Ladebalken fürs Network Connecting & Play Button")]
     [SerializeField]
-    private GameObject progressLabel, playButton;
+    private GameObject connectionProgress, playButton;
+
+    [Tooltip("Ladebalken Location & Location Failed UI")]
+    [SerializeField]
+    private GameObject locationProgress, locationFailed;
     
+    [Tooltip("GPS Position bei der das Game startet in Längen- und Breitengraden")]
+    [SerializeField]
+    private Vector2 startPos;
+
+    [Tooltip("Maximal zulässige Distanz, bei der das Game noch startet in Längen- und Breitengraden")]
+    [SerializeField]
+    private Vector2 maxDist;
+
+    [Tooltip("GPS Abfrage für Debugging ausschalten")]
+    [SerializeField]
+    private bool gpsFake;
+
     bool isConnecting;
 
     #endregion
@@ -31,19 +47,23 @@ public class Launcher : MonoBehaviourPunCallbacks
             PhotonNetwork.AutomaticallySyncScene = true;
         }
 
-    void Start(){
+    void Start(){   
 
-        playButton.SetActive(true);
-        progressLabel.SetActive(false);
-    
+        if(!gpsFake){
+            StartCoroutine(GetLocationData());
+        }else{
+            Debug.Log("GPS Fake für Debuggin ist aktiviert. Für Build deaktivieren.");
+            StartNetworkMenu();
+        }
     }
+
     #endregion
     
     #region Public Methods
     public void Connect(){
         
         //UI anpassen
-        progressLabel.SetActive(true);
+        connectionProgress.SetActive(true);
         playButton.SetActive(false);
 
         if(PhotonNetwork.IsConnected){
@@ -60,8 +80,87 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
     }
 
-    #endregion
+    public void LocateDevice(){
 
+        StartCoroutine(GetLocationData());
+
+    }
+
+    #endregion
+    
+    #region Private Methods
+    IEnumerator GetLocationData()
+    {
+        Debug.Log("Versuche Location zu ermitteln...");
+
+        // UI anpassen
+        playButton.SetActive(false);
+        connectionProgress.SetActive(false);
+        locationProgress.SetActive(true);
+        locationFailed.SetActive(false);
+
+        // Check if the user has location service enabled.
+        if (!Input.location.isEnabledByUser){
+            Debug.Log("GPS deaktiviert ");            
+            yield break;
+        
+        }
+
+        // Starts the location service.
+        Input.location.Start();
+
+        // Waits until the location service initializes
+        int maxWait = 20;
+        while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
+        {
+            yield return new WaitForSeconds(1);
+            maxWait--;
+        }
+
+        // If the service didn't initialize in 20 seconds this cancels location service use.
+        if (maxWait < 1)
+        {
+            Debug.Log("Location Service Timed out");
+            yield break;
+        }
+
+        // If the connection failed this cancels location service use.
+        if (Input.location.status == LocationServiceStatus.Failed)
+        {
+            Debug.Log("Unable to determine device location");
+            yield break;
+        }
+        else
+        {
+            // If the connection succeeded, this retrieves the device's current location and displays it in the Console window.
+            print("Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " + Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " + Input.location.lastData.timestamp);
+            
+            if(Input.location.lastData.latitude - startPos.x < maxDist.x && Input.location.lastData.longitude - startPos.y < maxDist.y)
+            {
+                StartNetworkMenu();
+            }else{
+                        
+                playButton.SetActive(false);
+                connectionProgress.SetActive(false);
+                locationProgress.SetActive(false);
+                locationFailed.SetActive(true);
+            }
+        }
+
+        // Stops the location service if there is no need to query location updates continuously.
+        Input.location.Stop();
+    }
+
+    void StartNetworkMenu(){
+        // Das Networking Menu aktivieren
+        playButton.SetActive(true);
+        connectionProgress.SetActive(false);
+        locationProgress.SetActive(false);
+        locationFailed.SetActive(false);
+    }
+    
+    #endregion
+    
     #region MonoBehaviourPunCallbacks Callbacks
 
     public override void OnConnectedToMaster(){
@@ -81,7 +180,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         //UI anpassen
         playButton.SetActive(true);
-        progressLabel.SetActive(false);
+        connectionProgress.SetActive(false);
         
         isConnecting = false;
 
