@@ -20,7 +20,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     [Tooltip("Ladebalken Location & Location Failed UI")]
     [SerializeField]
-    private GameObject locationProgress, locationFailed;
+    private GameObject locationProgress, locationFailed, gpsDeactived;
     
     [Tooltip("GPS Position bei der das Game startet in Längen- und Breitengraden")]
     [SerializeField]
@@ -93,18 +93,28 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Debug.Log("Versuche Location zu ermitteln...");
 
+
+        // Check if the user has location service enabled.
+        if (!Input.location.isEnabledByUser){
+            Debug.Log("GPS deaktiviert. Debugging-Modus kann im Script aktiviert werden (GPS-Fake).");
+            
+            // UI anpassen
+            gpsDeactived.SetActive(true);
+            playButton.SetActive(false);
+            connectionProgress.SetActive(false);
+            locationProgress.SetActive(false);
+            locationFailed.SetActive(false);
+
+            yield break;
+        
+        }
+
         // UI anpassen
         playButton.SetActive(false);
         connectionProgress.SetActive(false);
         locationProgress.SetActive(true);
         locationFailed.SetActive(false);
-
-        // Check if the user has location service enabled.
-        if (!Input.location.isEnabledByUser){
-            Debug.Log("GPS deaktiviert ");            
-            yield break;
-        
-        }
+        gpsDeactived.SetActive(false);
 
         // Starts the location service.
         Input.location.Start();
@@ -120,7 +130,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         // If the service didn't initialize in 20 seconds this cancels location service use.
         if (maxWait < 1)
         {
-            Debug.Log("Location Service Timed out");
+            print("Location Service Timed out");
             yield break;
         }
 
@@ -144,6 +154,7 @@ public class Launcher : MonoBehaviourPunCallbacks
                 connectionProgress.SetActive(false);
                 locationProgress.SetActive(false);
                 locationFailed.SetActive(true);
+                gpsDeactived.SetActive(false);
             }
         }
 
@@ -157,6 +168,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         connectionProgress.SetActive(false);
         locationProgress.SetActive(false);
         locationFailed.SetActive(false);
+        gpsDeactived.SetActive(false);
     }
     
     #endregion
