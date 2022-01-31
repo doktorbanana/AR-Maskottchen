@@ -21,6 +21,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(Random.Range(-1,1),0,-5), Quaternion.identity, 0);
     }
 
+    void OnApplicationQuit()
+    {
+        // Zustand des Maskottchens lokal speichern
+        SaveGame();
+    }
+
     #endregion
 
     #region PhotonCallbacks
@@ -51,16 +57,20 @@ public override void OnPlayerLeftRoom(Player other)
     
 }
 
+
     
     #endregion
 
     #region Public Methods
 
 
-        public void LeaveRoom()
-        {
-            PhotonNetwork.LeaveRoom();
-        }
+    public void LeaveRoom()
+    {   
+        //Zustände des Maskottchens lokal speichern
+        SaveGame();
+        //Raum verlassen
+        PhotonNetwork.LeaveRoom();
+    }
 
 
     #endregion
@@ -75,6 +85,16 @@ public override void OnPlayerLeftRoom(Player other)
         }
         Debug.LogFormat("PhotonNetwork : Szene wird geladen.");
         PhotonNetwork.LoadLevel("Main");
+    }
+
+    void SaveGame(){
+
+        // Speichern der Zustände in den Player Preferences
+        PlayerPrefs.SetFloat("hungry", Maskottchen.Manager.Maskottchen_Manager.hungry);
+        PlayerPrefs.SetFloat("unsatisfied", Maskottchen.Manager.Maskottchen_Manager.unsatisfied);
+        PlayerPrefs.SetInt("sleeping", Maskottchen.Manager.Maskottchen_Manager.sleeping ? 1 : 0);
+        PlayerPrefs.Save();
+    
     }
 
 

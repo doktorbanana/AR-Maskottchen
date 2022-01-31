@@ -198,6 +198,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         //Error für nicht verbunden
         Debug.LogError("Networking: Nicht mehr mit dem Server verbunden! Grund: " + cause);
+
     }
 
     public override void OnJoinedRoom()
@@ -209,6 +210,17 @@ public class Launcher : MonoBehaviourPunCallbacks
             
             Debug.Log("Networking: Als erster Spieler diesen Raum betreten.");
 
+            // Wenn kein anderer Spieler im Raum ist, werden die Zustände des Maskottchens aus lokalen Daten geladen.
+            if (PlayerPrefs.HasKey("hungry"))
+	        {
+                Maskottchen.Manager.Maskottchen_Manager.hungry = PlayerPrefs.GetFloat("hungry");
+                Maskottchen.Manager.Maskottchen_Manager.sleeping = (PlayerPrefs.GetInt("sleeping") != 0);
+                Maskottchen.Manager.Maskottchen_Manager.unsatisfied = PlayerPrefs.GetFloat("unsatisfied");
+                Debug.Log("Networking: Einziger Spieler. Zustände des Maskotchens werden lokal geladen");
+	        }
+	        else
+		        Debug.LogError("Networking: Es gibt keine lokalen Daten. Zustände des Maskottchens können nicht geladen werden");
+            
             //Szene Laden
             PhotonNetwork.LoadLevel("Main");
         }
