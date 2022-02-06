@@ -12,11 +12,13 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
     public static bool sleeping;
     
     [SerializeField]
-    [Tooltip("Wie viele Sekunden muss der Spieler inaktiv sein, damit das Maskottchen einschläft?")]
-    float sleepTime = 20;
+    [Tooltip("Wie viele Sekunden muss der Spieler inaktiv sein, damit das Maskottchen einschläft?")]        float sleepTime = 20;
+    private static float inactiveTime = 0;
 
-    private float inactiveTime = 0;
-    private Animator animator;
+    [SerializeField]
+    GameObject wakeUpButton;
+
+    private static Animator animator;
 
     #endregion
     
@@ -36,9 +38,12 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
             sleeping = true;
         }
 
-        if(sleeping)
+        if(sleeping){
             Sleep();
-
+            wakeUpButton.SetActive(true);
+        }else{
+            wakeUpButton.SetActive(false);
+        }
         hungry += Time.deltaTime;
         unsatisfied += Time.deltaTime;
 
@@ -57,7 +62,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
         animator.SetTrigger("Sleep");
     }
 
-    public void WakeUp(){
+    public static void WakeUp(){
         
         // Prüfen, ob Maskottchen gerade schläft
         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Sleep"))
