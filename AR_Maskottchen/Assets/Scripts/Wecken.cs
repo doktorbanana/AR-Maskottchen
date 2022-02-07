@@ -23,6 +23,7 @@ public class Wecken : MonoBehaviour
 
     void OnEnable(){
         InitMic();
+        currentscale = 0;
     }
 
     void OnDisable(){
