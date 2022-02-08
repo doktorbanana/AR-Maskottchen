@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "819407358116",
+    "firebase_url": "https://ar-maskottchen-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "ar-maskottchen",
+    "storage_bucket": "ar-maskottchen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819407358116:android:b09e173bc1c0b6094b3e31",
+        "android_client_info": {
+          "package_name": "com.HSD.AR_Maskottchen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819407358116-23f1u2cjtl0ti91tqvht59e6nlcfaeei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOEYG98iWQbVPaTvYB53lPtpHddDkEGu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819407358116-23f1u2cjtl0ti91tqvht59e6nlcfaeei.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
