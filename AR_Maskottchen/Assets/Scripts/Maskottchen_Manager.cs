@@ -20,6 +20,9 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
 
     private static Animator animator;
 
+    
+    private FirebaseDBManager firebaseDBManager;
+
     #endregion
     
     #region Unity Callbacks
@@ -27,6 +30,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
     void Start(){
         //Animator finden
         animator = GetComponent<Animator>();
+        firebaseDBManager = GameObject.FindGameObjectWithTag("FirebaseDBManager").GetComponent<FirebaseDBManager>();
     }
 
     void Update(){
@@ -84,6 +88,8 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
         inactiveTime = 0;
         hungry = 0;
         animator.SetTrigger("Catch");
+
+        firebaseDBManager.UpdateGameState(new GameState(103));
     }
 
     public void Pet(){

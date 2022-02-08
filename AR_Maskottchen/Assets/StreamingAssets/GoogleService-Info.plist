@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>819407358116-9o51gno9uoaa8v9fc74uvk73vghhcfi0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.819407358116-9o51gno9uoaa8v9fc74uvk73vghhcfi0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBAJLlEafZOhO80lJI4Q2Ue4ZreNTvBpB4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>819407358116</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.HSD.AR-Maskottchen</string>
+	<key>PROJECT_ID</key>
+	<string>ar-maskottchen</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ar-maskottchen.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:819407358116:ios:85a9b581a6db7c354b3e31</string>
+	<key>DATABASE_URL</key>
+	<string>https://ar-maskottchen-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
