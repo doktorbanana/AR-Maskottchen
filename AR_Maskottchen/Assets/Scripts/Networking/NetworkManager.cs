@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
+using Maskottchen.Manager;
+using Maskottchen.Database;
 
 namespace Maskottchen.Networking{
 public class NetworkManager : MonoBehaviourPunCallbacks
@@ -14,16 +16,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     #endregion
 
+    #region Private Variables
+
+    private FirebaseDBManager firebaseDBManager;
+
+    #endregion
+
     #region Unity Callbacks
 
     void Start()
     {
         PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(Random.Range(-1,1),0,-5), Quaternion.identity, 0);
+        firebaseDBManager = GameObject.FindGameObjectWithTag("FirebaseDBManager").GetComponent<FirebaseDBManager>();
     }
 
     void OnApplicationQuit()
     {
-        // Zustand des Maskottchens lokal speichern
+        // Zustand des Maskottchens  speichern
         SaveGame();
     }
 
@@ -66,7 +75,7 @@ public override void OnPlayerLeftRoom(Player other)
 
     public void LeaveRoom()
     {   
-        //Zustände des Maskottchens lokal speichern
+        //Zustände des Maskottchens speichern
         SaveGame();
         //Raum verlassen
         PhotonNetwork.LeaveRoom();
@@ -88,13 +97,8 @@ public override void OnPlayerLeftRoom(Player other)
     }
 
     void SaveGame(){
-
-        // Speichern der Zustände in den Player Preferences
-        PlayerPrefs.SetFloat("hungry", Maskottchen.Manager.Maskottchen_Manager.hungry);
-        PlayerPrefs.SetFloat("unsatisfied", Maskottchen.Manager.Maskottchen_Manager.unsatisfied);
-        PlayerPrefs.SetInt("sleeping", Maskottchen.Manager.Maskottchen_Manager.sleeping ? 1 : 0);
-        PlayerPrefs.Save();
-    
+        // Speichern der Zustände in Firebase
+        firebaseDBManager.UpdateGameState(Maskottchen_Manager.hungry, Maskottchen_Manager.unsatisfied, Maskottchen_Manager.tired);
     }
 
 

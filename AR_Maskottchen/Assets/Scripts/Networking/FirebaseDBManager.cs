@@ -6,11 +6,15 @@ using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
 
+using Maskottchen.Manager;
+
+namespace Maskottchen.Database{
 public class FirebaseDBManager : MonoBehaviour
 {
     DatabaseReference reference;
     Firebase.FirebaseApp app;
 
+    public static GameState gameState;
     void Start()
     {
         reference = FirebaseDatabase.DefaultInstance.RootReference;
@@ -27,8 +31,12 @@ public class FirebaseDBManager : MonoBehaviour
         Debug.Log("myObject.food: " + myGameState.food);
     }
 */
-    public void UpdateGameState(GameState gameState)
+    public void UpdateGameState(float hungry, float unsatisfied, float tired)
     {
+        gameState.müde = tired;
+        gameState.zufrieden = unsatisfied;
+        gameState.food = hungry;
+
         FirebaseDatabase.DefaultInstance.GetReference("gamestate").GetValueAsync().ContinueWith(task =>
         {
             if (task.IsFaulted)
@@ -44,9 +52,8 @@ public class FirebaseDBManager : MonoBehaviour
         });
     }
 
-    public GameState GetGameState()
+    public static void GetGameState()
     {
-        GameState myGameState = null;
         FirebaseDatabase.DefaultInstance.GetReference("gamestate").GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
@@ -56,11 +63,13 @@ public class FirebaseDBManager : MonoBehaviour
             else if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
-                GameState myGameState;
-                myGameState = JsonUtility.FromJson<GameState>(snapshot.GetRawJsonValue());
+                gameState = JsonUtility.FromJson<GameState>(snapshot.GetRawJsonValue());
+                Maskottchen_Manager.hungry = gameState.food;
+                Maskottchen_Manager.tired = gameState.müde;
+                Maskottchen_Manager.unsatisfied = gameState.zufrieden;
+
             }
         });
-        return myGameState;
     }
 
     public bool FirebaseCheck()
@@ -87,4 +96,5 @@ public class FirebaseDBManager : MonoBehaviour
         });
         return false;
     }
+}
 }

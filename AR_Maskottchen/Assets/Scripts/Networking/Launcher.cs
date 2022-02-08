@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using Maskottchen.Database;
+
 
 namespace Maskottchen.Networking{
     public class Launcher : MonoBehaviourPunCallbacks
@@ -45,6 +47,7 @@ namespace Maskottchen.Networking{
             // #Critical
             // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
             PhotonNetwork.AutomaticallySyncScene = true;
+
         }
 
         void Start()
@@ -58,6 +61,7 @@ namespace Maskottchen.Networking{
                 Debug.Log("GPS Fake für Debuggin ist aktiviert. Für Build deaktivieren.");
                 StartNetworkMenu();
             }
+
         }
 
         #endregion
@@ -99,13 +103,13 @@ namespace Maskottchen.Networking{
         #region Private Methods
         IEnumerator GetLocationData()
         {
-            Debug.Log("Versuche Location zu ermitteln...");
+            //Debug.Log("Versuche Location zu ermitteln...");
 
 
             // Check if the user has location service enabled.
             if (!Input.location.isEnabledByUser)
             {
-                Debug.Log("GPS deaktiviert. Debugging-Modus kann im Script aktiviert werden (GPS-Fake).");
+               Debug.Log("GPS deaktiviert. Debugging-Modus kann im Script aktiviert werden (GPS-Fake).");
 
                 // UI anpassen
                 gpsDeactived.SetActive(true);
@@ -146,7 +150,7 @@ namespace Maskottchen.Networking{
             // If the connection failed this cancels location service use.
             if (Input.location.status == LocationServiceStatus.Failed)
             {
-                Debug.Log("Unable to determine device location");
+                //Debug.Log("Unable to determine device location");
                 yield break;
             }
             else
@@ -183,6 +187,12 @@ namespace Maskottchen.Networking{
             gpsDeactived.SetActive(false);
         }
 
+        void LoadSettings(){
+            
+            // Letzten Gamestate laden
+            FirebaseDBManager.GetGameState();
+        }
+
         #endregion
 
         #region MonoBehaviourPunCallbacks Callbacks
@@ -191,7 +201,7 @@ namespace Maskottchen.Networking{
         {
 
 
-            Debug.Log("Networking: Mit PUN-Netzwerk verbunden.");
+            //Debug.Log("Networking: Mit PUN-Netzwerk verbunden.");
 
             if (isConnecting)
             {
@@ -211,38 +221,31 @@ namespace Maskottchen.Networking{
             isConnecting = false;
 
             //Error für nicht verbunden
-            Debug.LogError("Networking: Nicht mehr mit dem Server verbunden! Grund: " + cause);
+            //Debug.LogError("Networking: Nicht mehr mit dem Server verbunden! Grund: " + cause);
 
         }
 
         public override void OnJoinedRoom()
         {
-            Debug.Log("Networking: Client ist einem Room beigetreten.");
+            //Debug.Log("Networking: Client ist einem Room beigetreten.");
 
             // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
 
-                Debug.Log("Networking: Als erster Spieler diesen Raum betreten.");
-
-                // Wenn kein anderer Spieler im Raum ist, werden die Zustände des Maskottchens aus lokalen Daten geladen.
-                if (PlayerPrefs.HasKey("hungry"))
-                {
-                    Maskottchen.Manager.Maskottchen_Manager.hungry = PlayerPrefs.GetFloat("hungry");
-                    Maskottchen.Manager.Maskottchen_Manager.sleeping = (PlayerPrefs.GetInt("sleeping") != 0);
-                    Maskottchen.Manager.Maskottchen_Manager.unsatisfied = PlayerPrefs.GetFloat("unsatisfied");
-                    Debug.Log("Networking: Einziger Spieler. Zustände des Maskotchens werden lokal geladen");
-                }
-                else
-                    Debug.LogError("Networking: Es gibt keine lokalen Daten. Zustände des Maskottchens können nicht geladen werden");
+                //Debug.Log("Networking: Als erster Spieler diesen Raum betreten.");
 
                 //Szene Laden
                 PhotonNetwork.LoadLevel("Main");
+
+                // Werte des Maskottchens (Hunger, Zufriedenheit, Müdigkeit) laden
+                LoadSettings();
+
             }
         }
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            Debug.Log("Networking: Beitreten zu einem Random Room nicht möglich. " + message + ". " + returnCode + "\n Neuer Random Room wird erstellt.");
+            //Debug.Log("Networking: Beitreten zu einem Random Room nicht möglich. " + message + ". " + returnCode + "\n Neuer Random Room wird erstellt.");
 
             // Neuen Raum erstellen, falls noch keiner exisitiert
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });

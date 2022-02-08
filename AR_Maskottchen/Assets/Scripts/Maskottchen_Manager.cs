@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 namespace Maskottchen.Manager{
 public class Maskottchen_Manager : MonoBehaviourPunCallbacks
 {
     #region Variables
-    public static float hungry, unsatisfied;
+    public static float hungry, unsatisfied, tired;
     public static bool sleeping;
     
     [SerializeField]
@@ -18,10 +19,10 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
     [SerializeField]
     GameObject wakeUpButton;
 
-    private static Animator animator;
+    [SerializeField]
+    Image satImg, hunImg, tirImg;
 
-    
-    private FirebaseDBManager firebaseDBManager;
+    private static Animator animator;
 
     #endregion
     
@@ -30,15 +31,27 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
     void Start(){
         //Animator finden
         animator = GetComponent<Animator>();
-        firebaseDBManager = GameObject.FindGameObjectWithTag("FirebaseDBManager").GetComponent<FirebaseDBManager>();
     }
 
     void Update(){
         
+        
+        // Zustandswerte anpassen
+        
+        hungry += Time.deltaTime / 300;
+        unsatisfied += Time.deltaTime / 300;
+        tired += Time.deltaTime / 300;
+
+        hungry = Mathf.Clamp(hungry, 0, 1);
+        unsatisfied = Mathf.Clamp(unsatisfied, 0, 1);
+        tired = Mathf.Clamp(tired, 0, 1);
+
         //Inaktive Zeit messen
         inactiveTime += Time.deltaTime;
 
-        if(inactiveTime > sleepTime){
+        // Schlafen, wenn zu müde oder nichts passiert
+
+        if(inactiveTime > sleepTime || tired > 1){
             sleeping = true;
         }
 
@@ -48,9 +61,9 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
         }else{
             wakeUpButton.SetActive(false);
         }
-        hungry += Time.deltaTime;
-        unsatisfied += Time.deltaTime;
 
+        //GUI anpasse
+        SyncGUI();
     }
     #endregion
 
@@ -63,6 +76,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
         
         // Wenn ja, Variable anpassen und Animation starten
         sleeping = true;
+        tired -= Time.deltaTime;
         animator.SetTrigger("Sleep");
     }
 
@@ -86,10 +100,8 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
-        hungry = 0;
+        hungry -= 0.3f;
         animator.SetTrigger("Catch");
-
-        firebaseDBManager.UpdateGameState(new GameState(103));
     }
 
     public void Pet(){
@@ -99,10 +111,42 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
         
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
-        unsatisfied = 0;
+        unsatisfied -= 0.3f;
         animator.SetTrigger("Laugh");
     }
+
+    void SyncGUI(){
+        satImg.fillAmount = 1 - unsatisfied;
+        tirImg.fillAmount = 1 - tired;
+        hunImg.fillAmount = 1 - hungry;
+
+    }
     #endregion
+
+/*
+     #region IPunObservable implementation
+
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // We own this player: send the others our data
+            stream.SendNext(tired);
+            stream.SendNext(hungry);
+            stream.SendNext(unsatisfied);
+        }
+        else
+        {
+            // Network player, receive data
+           hungry = (float)stream.ReceiveNext();
+            hungry = (float)stream.ReceiveNext();
+        }
+    }
+
+
+    #endregion
+*/
 
 }
 }

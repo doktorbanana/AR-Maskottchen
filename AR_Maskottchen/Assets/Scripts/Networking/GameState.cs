@@ -1,10 +1,17 @@
 public class GameState {
-    public int food;
+    public float food;
+    public float zufrieden;
+    public float müde;
+
 
     public GameState(){
     }
 
-    public GameState(int food){
+    public GameState(float food, float zufrieden, float müde)
+    {
         this.food = food;
+        this.zufrieden = zufrieden;
+        this.müde = müde;
+    
     }
 }
