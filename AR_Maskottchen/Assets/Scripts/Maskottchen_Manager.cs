@@ -10,7 +10,12 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 {
     #region Variables
     public static float hungry, unsatisfied, tired;
+
     public static bool sleeping = false, feeding = false, petting = false, wakingUp = false;
+
+    [SerializeField]
+    private AudioClip lauthingSound;
+    public AudioSource myAudioSource;
     
     [SerializeField]
     [Tooltip("Wie viele Sekunden muss der Spieler inaktiv sein, damit das Maskottchen einschläft?")]        float sleepTime = 20;
@@ -28,6 +33,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     public static PhotonView phoView;
 
     GameObject maskottchen;
+
     public static Animator animator;
 
     #endregion
@@ -162,7 +168,10 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         unsatisfied -= 0.3f;
         animator.SetTrigger("Laugh");
 
-        // Auf Ende der Animation warten
+        myAudioSource.clip = lauthingSound;
+        myAudioSource.Play();
+
+
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
 
         //Streicheln wieder freigeben

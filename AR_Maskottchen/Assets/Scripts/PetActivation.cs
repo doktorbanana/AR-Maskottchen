@@ -25,7 +25,7 @@ public class PetActivation : MonoBehaviour
     void Start()
     {
         maskottchen_ManagerScript = GetComponent<Maskottchen_Manager>();
-        coll = GetComponent<Collider>();
+        coll = maskottchen_ManagerScript.GetComponent<Collider>();
     }
  
 
@@ -67,6 +67,15 @@ public class PetActivation : MonoBehaviour
             //checkt, ob Maskottchen getroffen wurde
             if(coll.Raycast(ray, out hit, 100.0f))
             { 
+
+                if(touch.phase == TouchPhase.Began && Time.time < lastTapTime + maxTapTimeInterval)
+                {
+                    tapCounter++;
+                }
+                else{
+                    tapCounter = 1;
+                }
+
                 if(Time.time > lastTapTime + minTapTimeInterval)
                 {
                     switch(tapCounter)
@@ -88,15 +97,6 @@ public class PetActivation : MonoBehaviour
                     }
                     myAudioSource.Play();
                 }
-
-                if(touch.phase == TouchPhase.Began && Time.time < lastTapTime + maxTapTimeInterval)
-                {
-                    tapCounter++;
-                }
-                else{
-                    tapCounter = 1;
-                }
-                
                 lastTapTime = Time.time;
                 Debug.Log(tapCounter + " " + lastTapTime);
             }
@@ -120,6 +120,19 @@ public class PetActivation : MonoBehaviour
 
             if(coll.Raycast(ray, out hit, 100.0f))
             {
+                //prüfen, ob letzter Tap zu lange her ist
+                //tapCounter startet mit 1, weil Wert erst beim 2. klicken ansteigt (tapCounter++)
+                if (Time.time < lastTapTime + maxTapTimeInterval)
+                {
+                    if(Time.time > lastTapTime + minTapTimeInterval)
+                    {
+                        tapCounter++;
+                    }            
+                }
+                else{
+                    tapCounter = 1;
+                }
+                
                 if(Time.time > lastTapTime + minTapTimeInterval)
                 {
                     switch(tapCounter)
@@ -140,19 +153,6 @@ public class PetActivation : MonoBehaviour
                             break;
                     }
                     myAudioSource.Play();
-                }
-
-                //prüfen, ob letzter Tap zu lange her ist
-                //tapCounter startet mit 1, weil Wert erst beim 2. klicken ansteigt (tapCounter++)
-                if (Time.time < lastTapTime + maxTapTimeInterval)
-                {
-                    if(Time.time > lastTapTime + minTapTimeInterval)
-                    {
-                        tapCounter++;
-                    }            
-                }
-                else{
-                    tapCounter = 1;
                 }
 
                 lastTapTime = Time.time;
