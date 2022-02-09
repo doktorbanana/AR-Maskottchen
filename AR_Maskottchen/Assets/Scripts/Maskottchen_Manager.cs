@@ -82,7 +82,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         // Prüfen, ob sich die letzte Aktion von der vorletzten Aktion unterscheidet. Wenn ja, dann die letzte Aktion durchführen. 
         Debug.Log("Letzte Aktion: " + letzteAktion);
         Debug.Log("Eigene Letze: " + eigeneLetzeAktion);
-        Debug.Log(letzteAktion.Remove(letzteAktion.Length - 5));
+        Debug.Log("Inactive Time: " + (inactiveTime>0));
 
         if(!(letzteAktion == eigeneLetzeAktion)){
             switch(letzteAktion.Remove(letzteAktion.Length - 5)){
@@ -137,7 +137,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         inactiveTime = 0;
 
         animator.SetTrigger("Idle");  
-        letzteAktion = "WakeUp00,00";
+        letzteAktion = "WakeUp" + Time.time.ToString("00.00");
     }
 
     public void Feed(){
