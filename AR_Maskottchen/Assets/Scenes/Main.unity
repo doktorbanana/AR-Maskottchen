@@ -175,7 +175,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &24765191
 MonoBehaviour:
@@ -1763,11 +1763,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 745cdad0e4ec5284f958fda772c2b009, type: 3}
---- !u!1 &1817445442 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5622547043149036829, guid: 745cdad0e4ec5284f958fda772c2b009, type: 3}
-  m_PrefabInstance: {fileID: 1817445441}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1825592028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2999,7 +2994,7 @@ Transform:
   m_Children:
   - {fileID: 3060528890613744602}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1826022916852331061
 PrefabInstance:
@@ -3159,7 +3154,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &2798408630383586449
 Camera:
@@ -3413,4 +3408,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectsToPlace:
   - {fileID: 1153176589}
-  - {fileID: 1817445442}
+  - {fileID: 5622547043149036829, guid: 9343a4cf7530d3041a424ca3e01cebe9, type: 3}
