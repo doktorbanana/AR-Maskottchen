@@ -153,10 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae8e5acdbf38754b93026bdeb2ae87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sleeping: 0
-  wakingUp: 0
-  feeding: 0
-  petting: 0
   lauthingSound: {fileID: 8300000, guid: 5c7a5edc8b228874385cde6938d4fe62, type: 3}
   myAudioSource: {fileID: 628422995, guid: e9c9a2efd9e2e224bb7941b549fa2f24, type: 3}
   sleepTime: 20
@@ -867,7 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a007c6a81c8574da264f4eb9b476b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mascot_prefab: {fileID: 2672767624862897157, guid: e9c9a2efd9e2e224bb7941b549fa2f24, type: 3}
+  mascot_prefab: {fileID: 2672767624862897157, guid: f4fb00ddda97c734da7ec8ec4f3a5003, type: 3}
 --- !u!114 &610950453
 MonoBehaviour:
   m_ObjectHideFlags: 0

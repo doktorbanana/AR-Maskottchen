@@ -89,15 +89,19 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
             switch(letzteAktion){
                 case "Sleep":
                     Sleep();
+                    eigeneLetzeAktion = "Sleep";
                     break;
                 case "WakeUp":
                     WakeUp();
+                    eigeneLetzeAktion = "WakeUp";
                     break;
                 case "Feed":
                     Feed();
+                    eigeneLetzeAktion = "Feed";
                     break;
                 case "Pet":
                     Pet();
+                    eigeneLetzeAktion = "Pet";
                     break;
             }
         }
