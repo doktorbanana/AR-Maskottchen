@@ -7,9 +7,9 @@ public class FoodCollider : MonoBehaviour
 {
     public Maskottchen_Manager maskottchen_ManagerScript;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.collider.CompareTag("Maskottchen"))
+        if (other.gameObject.CompareTag("Maskottchen"))
         {
             Debug.Log("Collision!");
             Destroy(gameObject);
