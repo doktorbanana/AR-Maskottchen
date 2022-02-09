@@ -25,7 +25,7 @@ public class PetActivation : MonoBehaviour
     void Start()
     {
         maskottchen_ManagerScript = GetComponent<Maskottchen_Manager>();
-        coll = maskottchen_ManagerScript.GetComponent<Collider>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
  
 
@@ -48,7 +48,7 @@ public class PetActivation : MonoBehaviour
     void TapPetTouch()
     {
         // Prüfen, ob Maskottchen gerade Idle ist
-        if(true)
+        if(!GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             return;
         }
@@ -57,9 +57,6 @@ public class PetActivation : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-
-            //prüfen, ob letzter Tap zu lange her ist
-            //tapCounter startet mit 1, weil Wert erst beim 2. klicken ansteigt (tapCounter++)
             
             Ray ray = cam.ScreenPointToRay(touch.position);
             RaycastHit hit;
@@ -67,7 +64,9 @@ public class PetActivation : MonoBehaviour
             //checkt, ob Maskottchen getroffen wurde
             if(coll.Raycast(ray, out hit, 100.0f))
             { 
-
+                
+                //prüfen, ob letzter Tap zu lange her ist
+                //tapCounter startet mit 1, weil Wert erst beim 2. klicken ansteigt (tapCounter++)
                 if(touch.phase == TouchPhase.Began && Time.time < lastTapTime + maxTapTimeInterval)
                 {
                     tapCounter++;
@@ -107,7 +106,7 @@ public class PetActivation : MonoBehaviour
     void TapPetMouse()
     {
         // Prüfen, ob Maskottchen gerade Idle ist
-        if(true)
+        if(!GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             return;
         }

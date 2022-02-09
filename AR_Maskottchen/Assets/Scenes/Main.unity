@@ -2051,7 +2051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttons: {fileID: 393995483}
   fill: {fileID: 1884158534}
-  maskottchenManager: {fileID: 24765189}
+  maskottchenManager: {fileID: 0}
 --- !u!1 &1884158532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,7 +2837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148d6f04c46aa0b408062b83128b77d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maskottchenManager: {fileID: 24765189}
+  maskottchenManager: {fileID: 0}
 --- !u!1 &2124028187
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,7 +3305,7 @@ GameObject:
   - component: {fileID: 7531964091345939774}
   m_Layer: 0
   m_Name: AR Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
