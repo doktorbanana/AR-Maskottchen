@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FirebaseDBManager
   - Maskottchen
+  - Essen
   layers:
   - Default
   - TransparentFX
