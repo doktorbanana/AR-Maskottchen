@@ -828,6 +828,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae8e5acdbf38754b93026bdeb2ae87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lauthingSound: {fileID: 8300000, guid: 5c7a5edc8b228874385cde6938d4fe62, type: 3}
+  myAudioSource: {fileID: 628422988}
   sleepTime: 60
   wakeUpButton: {fileID: 2010826598}
   satImg: {fileID: 1986669987}
@@ -929,6 +931,34 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &628422989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628422984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9abd8dd51c43f4db89677c1ef3cd73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskottchen_ManagerScript: {fileID: 0}
+  giggle1: {fileID: 8300000, guid: cba1dcc40ffc70b438e259f327f40ccf, type: 3}
+  giggle2: {fileID: 8300000, guid: 8d212379418b8e7498457d55764ad824, type: 3}
+  giggle3: {fileID: 8300000, guid: 158a589763f628b42b5efd3f0b5ade05, type: 3}
+  giggle4: {fileID: 8300000, guid: 16fc4052d4abd8746b16c95eb16a82e3, type: 3}
+  myAudioSource: {fileID: 628422995}
+  coll: {fileID: 628422991}
+  cam: {fileID: 2798408630383586449}
+  maxTapTimeInterval: 1
+  minTapTimeInterval: 0.4
+  triggerCount: 5
+--- !u!136 &628422991 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 7853771026147864262, guid: f4fb00ddda97c734da7ec8ec4f3a5003, type: 3}
+  m_PrefabInstance: {fileID: 628422983}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &628422995
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3071,6 +3101,7 @@ GameObject:
   - component: {fileID: 78558496581092995}
   - component: {fileID: 2846776496559928064}
   - component: {fileID: 5554573968977390534}
+  - component: {fileID: 7531964091345939774}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: Untagged
@@ -3078,6 +3109,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!81 &7531964091345939774
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7531964091345939773}
+  m_Enabled: 1
 --- !u!1 &8365124123197239279
 GameObject:
   m_ObjectHideFlags: 0
@@ -3109,7 +3148,6 @@ GameObject:
   - component: {fileID: 8549680620946765623}
   - component: {fileID: 8549680620946765622}
   - component: {fileID: 8549680620946765621}
-  - component: {fileID: 8549680620946765624}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -3159,26 +3197,3 @@ MonoBehaviour:
   m_SerializedLibrary: {fileID: 11400000, guid: 4bf2fdf425a72ae409a187bd755e5c08, type: 2}
   m_MaxNumberOfMovingImages: 0
   m_TrackedImagePrefab: {fileID: 266857912900277192, guid: f4fb00ddda97c734da7ec8ec4f3a5003, type: 3}
---- !u!114 &8549680620946765624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8549680620946765620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a9abd8dd51c43f4db89677c1ef3cd73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maskottchen_ManagerScript: {fileID: 0}
-  giggle1: {fileID: 0}
-  giggle2: {fileID: 0}
-  giggle3: {fileID: 0}
-  giggle4: {fileID: 0}
-  myAudioSource: {fileID: 0}
-  coll: {fileID: 0}
-  cam: {fileID: 0}
-  maxTapTimeInterval: 1
-  minTapTimeInterval: 0.4
-  triggerCount: 5

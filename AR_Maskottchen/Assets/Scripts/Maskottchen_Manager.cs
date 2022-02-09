@@ -11,6 +11,10 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     #region Variables
     public static float hungry, unsatisfied, tired;
     public static bool sleeping;
+
+    [SerializeField]
+    private AudioClip lauthingSound;
+    public AudioSource myAudioSource;
     
     [SerializeField]
     [Tooltip("Wie viele Sekunden muss der Spieler inaktiv sein, damit das Maskottchen einschläft?")]        float sleepTime = 20;
@@ -113,6 +117,8 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         inactiveTime = 0;
         unsatisfied -= 0.3f;
         animator.SetTrigger("Laugh");
+        myAudioSource.clip = lauthingSound;
+        myAudioSource.Play();
     }
 
     void SyncGUI(){
