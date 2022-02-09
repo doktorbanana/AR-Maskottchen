@@ -12,6 +12,8 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     public static float hungry, unsatisfied, tired;
     private string letzteAktion = "Idle00,00", eigeneLetzeAktion = "Idle00,00";
 
+    bool sleeping;
+    
     [SerializeField]
     private AudioClip lauthingSound;
     public AudioSource myAudioSource;
@@ -60,13 +62,16 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
         // Schlafen, wenn zu müde oder nichts passiert
         if(inactiveTime > sleepTime || tired >= 1){
-             Sleep();
+            sleeping = true;
+        }
+
+        if(sleeping){
+            Sleep();
             wakeUpButton.SetActive(true);
         }else{
             wakeUpButton.SetActive(false);
             tired += Time.deltaTime / 60;
         }
-
         //Alle Zustände auf einen Bereich zwischen 0 und 1 beschränken
         hungry = Mathf.Clamp(hungry, 0, 1);
         unsatisfied = Mathf.Clamp(unsatisfied, 0, 1);
@@ -82,7 +87,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         // Prüfen, ob sich die letzte Aktion von der vorletzten Aktion unterscheidet. Wenn ja, dann die letzte Aktion durchführen. 
         Debug.Log("Letzte Aktion: " + letzteAktion);
         Debug.Log("Eigene Letze: " + eigeneLetzeAktion);
-        Debug.Log("Inactive Time: " + (inactiveTime>0));
+        Debug.Log("Inactive Time: " + (inactiveTime>sleepTime));
 
         if(!(letzteAktion == eigeneLetzeAktion)){
             switch(letzteAktion.Remove(letzteAktion.Length - 5)){
@@ -135,6 +140,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
+        sleeping = false;
 
         animator.SetTrigger("Idle");  
         letzteAktion = "WakeUp" + Time.time.ToString("00.00");
