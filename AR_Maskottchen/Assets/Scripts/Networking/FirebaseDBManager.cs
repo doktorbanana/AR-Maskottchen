@@ -14,7 +14,7 @@ public class FirebaseDBManager : MonoBehaviour
     DatabaseReference reference;
     Firebase.FirebaseApp app;
 
-    public static GameState gameState;
+    public static GameState gameState = new GameState();
     void Start()
     {
         reference = FirebaseDatabase.DefaultInstance.RootReference;
@@ -33,6 +33,8 @@ public class FirebaseDBManager : MonoBehaviour
 */
     public void UpdateGameState(float hungry, float unsatisfied, float tired)
     {
+        Debug.Log(tired);
+        Debug.Log(gameState);
         gameState.müde = tired;
         gameState.zufrieden = unsatisfied;
         gameState.food = hungry;

@@ -40,7 +40,7 @@ public class Wecken : MonoBehaviour
             currentscale += GetAmplitude() /10;
             fill.rectTransform.localScale = new Vector2(1, currentscale);
         }else{
-            Maskottchen.Manager.Maskottchen_Manager.WakeUp();
+            Maskottchen.Manager.Maskottchen_Manager.wakingUp = true;
             this.gameObject.SetActive(false);
             buttons.SetActive(true);
         }

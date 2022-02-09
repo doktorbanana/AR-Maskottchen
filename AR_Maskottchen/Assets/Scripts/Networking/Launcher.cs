@@ -48,6 +48,11 @@ namespace Maskottchen.Networking{
             // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
             PhotonNetwork.AutomaticallySyncScene = true;
 
+            //Wenn noch ein Maskottchen sichtbar sein sollte, wird es zerstört
+            if(GameObject.FindGameObjectWithTag("Maskottchen")){
+                Destroy(GameObject.FindGameObjectWithTag("Maskottchen"));
+            }
+
         }
 
         void Start()
