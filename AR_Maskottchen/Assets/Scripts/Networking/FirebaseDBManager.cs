@@ -33,8 +33,6 @@ public class FirebaseDBManager : MonoBehaviour
 */
     public void UpdateGameState(float hungry, float unsatisfied, float tired)
     {
-        Debug.Log(tired);
-        Debug.Log(gameState);
         gameState.müde = tired;
         gameState.zufrieden = unsatisfied;
         gameState.food = hungry;

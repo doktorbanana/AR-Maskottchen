@@ -53,6 +53,10 @@ namespace Maskottchen.Networking{
                 Destroy(GameObject.FindGameObjectWithTag("Maskottchen"));
             }
 
+            if(GameObject.FindGameObjectWithTag("Essen")){
+                GameObject[] objs = GameObject.FindGameObjectsWithTag("Essen");
+            }
+
         }
 
         void Start()

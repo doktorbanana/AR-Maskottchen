@@ -13,6 +13,8 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
     public static bool sleeping = false, feeding = false, petting = false, wakingUp = false;
 
+    bool coroutineRunning = false;
+
     [SerializeField]
     private AudioClip lauthingSound;
     public AudioSource myAudioSource;
@@ -85,9 +87,9 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         // Aktionen ausführen, wenn sich die entsprechenden bools ändern
-        if(feeding) StartCoroutine(Feed());
-        if(petting) StartCoroutine(Pet());
-        if(wakingUp) WakeUp();
+        if(feeding && !coroutineRunning) StartCoroutine(Feed());
+        if(petting && !coroutineRunning) StartCoroutine(Pet());
+        if(wakingUp && !coroutineRunning) WakeUp();
 
         //GUI anpasse
         SyncGUI();
@@ -131,12 +133,14 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     public IEnumerator Feed(){
-        
+
         // Prüfen, ob Maskottchen gerade Idle ist
         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             yield return null;
-        
+                
         feeding = true;
+        coroutineRunning = true;
+
 
        // Ownership über dieses Objekt übernehmen, damit Daten geschrieben werden können
         phoView.RequestOwnership();
@@ -151,6 +155,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
         // Essen wieder freigeben
         feeding = false;
+        coroutineRunning = false;
     }
 
     public IEnumerator Pet(){
@@ -159,6 +164,8 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
             yield return null;
         
         petting = true;
+        
+        coroutineRunning = true;
 
         // Ownership über dieses Objekt übernehmen, damit Daten geschrieben werden können
         phoView.RequestOwnership();
@@ -176,6 +183,8 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
         //Streicheln wieder freigeben
         petting = false;  
+
+        coroutineRunning = false;
     }
 
     void SyncGUI(){

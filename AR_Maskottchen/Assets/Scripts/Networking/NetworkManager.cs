@@ -99,8 +99,7 @@ public override void OnPlayerLeftRoom(Player other)
     void SaveGame(){
         // Speichern der Zustände in Firebase
         float tired = Maskottchen_Manager.tired;
-        Debug.Log("Versuche zu speichern: " + firebaseDBManager);
-
+        
         firebaseDBManager.UpdateGameState(Maskottchen_Manager.hungry, Maskottchen_Manager.unsatisfied, Maskottchen_Manager.tired);
     }
 
