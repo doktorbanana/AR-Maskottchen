@@ -23,5 +23,15 @@ MonoBehaviour:
       m_GuidHigh: 6538506267860723209
     m_Size: {x: 0.2132091, y: 0.28}
     m_SpecifySize: 1
-    m_Name: ReferenceImage
+    m_Name: Leos_Mascot
     m_Texture: {fileID: 2800000, guid: f98a758020c01a2409e680e1ce70bd5a, type: 3}
+  - m_SerializedGuid:
+      m_GuidLow: 4649567060694951009
+      m_GuidHigh: 5860821670586511772
+    m_SerializedTextureGuid:
+      m_GuidLow: 14633345604521990502
+      m_GuidHigh: 16354854183286795755
+    m_Size: {x: 0.1, y: 0.06277279}
+    m_SpecifySize: 1
+    m_Name: food
+    m_Texture: {fileID: 2800000, guid: e90e9966164bcb14ebed1e5c3a1df8e2, type: 3}

@@ -105,7 +105,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
         hungry -= 0.3f;
-        animator.SetTrigger("Catch");
+        animator.SetTrigger("Pickup");
     }
 
     public void Pet(){
