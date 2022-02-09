@@ -10,8 +10,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 {
     #region Variables
     public static float hungry, unsatisfied, tired;
-
-    private string letzteAktion = "Idle", eigeneLetzeAktion = "Idle";
+    private string letzteAktion = "Idle00,00", eigeneLetzeAktion = "Idle00,00";
 
     [SerializeField]
     private AudioClip lauthingSound;
@@ -30,7 +29,6 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     GameObject buttons, zustände, startanleitung;
 
-    public static PhotonView phoView;
 
     GameObject maskottchen;
 
@@ -40,9 +38,6 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     
     #region Unity Callbacks
 
-    void Start(){
-        phoView = GetComponent<PhotonView>();
-    }
     void Update(){
         
         // Masskottchen in der Szene finden
@@ -85,23 +80,27 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
         // Die letze Aktion wird über Photon zwischen den verschiedenen Spielern gesynct. 
         // Prüfen, ob sich die letzte Aktion von der vorletzten Aktion unterscheidet. Wenn ja, dann die letzte Aktion durchführen. 
+        Debug.Log("Letzte Aktion: " + letzteAktion);
+        Debug.Log("Eigene Letze: " + eigeneLetzeAktion);
+        Debug.Log(letzteAktion.Remove(letzteAktion.Length - 5));
+
         if(!(letzteAktion == eigeneLetzeAktion)){
-            switch(letzteAktion){
+            switch(letzteAktion.Remove(letzteAktion.Length - 5)){
                 case "Sleep":
                     Sleep();
-                    eigeneLetzeAktion = "Sleep";
+                    eigeneLetzeAktion = letzteAktion;
                     break;
                 case "WakeUp":
                     WakeUp();
-                    eigeneLetzeAktion = "WakeUp";
+                    eigeneLetzeAktion = letzteAktion;
                     break;
                 case "Feed":
                     Feed();
-                    eigeneLetzeAktion = "Feed";
+                    eigeneLetzeAktion = letzteAktion;
                     break;
                 case "Pet":
                     Pet();
-                    eigeneLetzeAktion = "Pet";
+                    eigeneLetzeAktion = letzteAktion;
                     break;
             }
         }
@@ -114,16 +113,14 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         // Prüfen ob Maskottchen gerade Idle ist
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("Catch") || animator.GetCurrentAnimatorStateInfo(0).IsName("Laugh"))
             return;
-
-
-        // Ownership über dieses Objekt übernehmen, damit Daten geschrieben werden können
-        phoView.RequestOwnership();
         
+        photonView.RequestOwnership();
+
         // Wenn ja, Animation starten
         tired -= Time.deltaTime / 20;
         animator.SetTrigger("Sleep");
         
-        letzteAktion = "Sleep";
+        letzteAktion = "Sleep" + Time.time.ToString("00.00");
 
     }
 
@@ -133,14 +130,14 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Sleep"))
             return;
 
-        // Ownership über dieses Objekt übernehmen, damit Daten geschrieben werden können
-        phoView.RequestOwnership();
+        photonView.RequestOwnership();
+
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
 
         animator.SetTrigger("Idle");  
-        letzteAktion = "WakeUp";
+        letzteAktion = "WakeUp" + Time.time.ToString("00.00");
     }
 
     public void Feed(){
@@ -149,16 +146,15 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             return;
         
+        photonView.RequestOwnership();
 
-       // Ownership über dieses Objekt übernehmen, damit Daten geschrieben werden können
-        phoView.RequestOwnership();
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
         hungry -= 0.3f;
         animator.SetTrigger("Catch");
         
-        letzteAktion = "Feed";
+        letzteAktion = "Feed" + Time.time.ToString("00.00");
 
     }
 
@@ -166,9 +162,9 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         // Prüfen, ob Maskottchen gerade Idle ist
         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             return;
+        
+        photonView.RequestOwnership();
 
-        // Ownership über dieses Objekt übernehmen, damit Daten geschrieben werden können
-        phoView.RequestOwnership();
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
@@ -179,7 +175,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         myAudioSource.clip = lauthingSound;
         myAudioSource.Play();
 
-        letzteAktion = "Pet";
+        letzteAktion = "Pet" + Time.time.ToString("00.00");
     }
 
     #endregion
