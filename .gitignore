@@ -62,3 +62,5 @@ sysinfo.txt
 crashlytics-build.properties
 
 AR_Maskottchen/.vscode/settings.json
+AR_Maskottchen/Packages/manifest.json
+AR_Maskottchen/Packages/packages-lock.json
