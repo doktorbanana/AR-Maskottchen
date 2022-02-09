@@ -79,6 +79,7 @@ namespace Maskottchen.Networking{
 
                 // Versuchen einem bestehendem Raum beizureten
                 PhotonNetwork.JoinRandomRoom();
+                Debug.Log("Networking versuche Random Room beizutreten");
 
             }
             else
@@ -93,9 +94,7 @@ namespace Maskottchen.Networking{
 
         public void LocateDevice()
         {
-
             StartCoroutine(GetLocationData());
-
         }
 
         #endregion
@@ -201,7 +200,7 @@ namespace Maskottchen.Networking{
         {
 
 
-            //Debug.Log("Networking: Mit PUN-Netzwerk verbunden.");
+            Debug.Log("Networking: Mit PUN-Netzwerk verbunden.");
 
             if (isConnecting)
             {
@@ -227,13 +226,13 @@ namespace Maskottchen.Networking{
 
         public override void OnJoinedRoom()
         {
-            //Debug.Log("Networking: Client ist einem Room beigetreten.");
+            Debug.Log("Networking: Client ist einem Room beigetreten.");
 
             // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
 
-                //Debug.Log("Networking: Als erster Spieler diesen Raum betreten.");
+                Debug.Log("Networking: Als erster Spieler diesen Raum betreten.");
 
                 //Szene Laden
                 PhotonNetwork.LoadLevel("Main");
@@ -245,7 +244,7 @@ namespace Maskottchen.Networking{
         }
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            //Debug.Log("Networking: Beitreten zu einem Random Room nicht möglich. " + message + ". " + returnCode + "\n Neuer Random Room wird erstellt.");
+            Debug.Log("Networking: Beitreten zu einem Random Room nicht möglich. " + message + ". " + returnCode + "\n Neuer Random Room wird erstellt.");
 
             // Neuen Raum erstellen, falls noch keiner exisitiert
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });

@@ -6,7 +6,7 @@ using Photon.Realtime;
 using UnityEngine.UI;
 
 namespace Maskottchen.Manager{
-public class Maskottchen_Manager : MonoBehaviourPunCallbacks
+public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 {
     #region Variables
     public static float hungry, unsatisfied, tired;
@@ -123,7 +123,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
     }
     #endregion
 
-/*
+
      #region IPunObservable implementation
 
 
@@ -135,18 +135,22 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks
             stream.SendNext(tired);
             stream.SendNext(hungry);
             stream.SendNext(unsatisfied);
+            stream.SendNext(sleeping);
+            stream.SendNext(inactiveTime);
         }
         else
         {
             // Network player, receive data
+           tired = (float)stream.ReceiveNext();
            hungry = (float)stream.ReceiveNext();
-            hungry = (float)stream.ReceiveNext();
+           unsatisfied = (float)stream.ReceiveNext();
+           sleeping = (bool)stream.ReceiveNext();
+           inactiveTime = (float)stream.ReceiveNext();
         }
     }
 
 
     #endregion
-*/
 
 }
 }
