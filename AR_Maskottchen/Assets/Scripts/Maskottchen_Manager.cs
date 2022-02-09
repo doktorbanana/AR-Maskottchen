@@ -120,7 +120,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         tired -= Time.deltaTime / 20;
         animator.SetTrigger("Sleep");
         
-        letzteAktion = "Sleep" + Time.time.ToString("00.00");
+        letzteAktion = "Sleep00,00";
 
     }
 
@@ -137,7 +137,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         inactiveTime = 0;
 
         animator.SetTrigger("Idle");  
-        letzteAktion = "WakeUp" + Time.time.ToString("00.00");
+        letzteAktion = "WakeUp00,00";
     }
 
     public void Feed(){
@@ -209,7 +209,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
+        if (stream.IsWriting && PhotonNetwork.InRoom)
         {
             // We own this player: send the others our data
             stream.SendNext(letzteAktion);
@@ -217,7 +217,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(unsatisfied);
             stream.SendNext(tired);
         }
-        else
+        else if(PhotonNetwork.InRoom)
         {
             // Network player, receive data
             
