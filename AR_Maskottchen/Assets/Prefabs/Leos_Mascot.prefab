@@ -25,15 +25,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2337663477354733653, guid: 83759f5610ea28144aa450e2cfc8eaf7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.8698974
       objectReference: {fileID: 0}
     - target: {fileID: 2337663477354733653, guid: 83759f5610ea28144aa450e2cfc8eaf7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.22
+      value: -0.5417237
       objectReference: {fileID: 0}
     - target: {fileID: 2337663477354733653, guid: 83759f5610ea28144aa450e2cfc8eaf7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: -4.5860705
       objectReference: {fileID: 0}
     - target: {fileID: 2337663477354733653, guid: 83759f5610ea28144aa450e2cfc8eaf7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -101,6 +101,11 @@ PrefabInstance:
 --- !u!1 &2672767624862897157 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3115044124669147887, guid: 83759f5610ea28144aa450e2cfc8eaf7, type: 3}
+  m_PrefabInstance: {fileID: 1021560509168381674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &5358633774462413067 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 4931721796470851553, guid: 83759f5610ea28144aa450e2cfc8eaf7, type: 3}
   m_PrefabInstance: {fileID: 1021560509168381674}
   m_PrefabAsset: {fileID: 0}
 --- !u!82 &628422995
@@ -199,6 +204,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-6095223363713176264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2672767624862897157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9abd8dd51c43f4db89677c1ef3cd73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskottchen_ManagerScript: {fileID: 0}
+  giggle1: {fileID: 8300000, guid: cba1dcc40ffc70b438e259f327f40ccf, type: 3}
+  giggle2: {fileID: 8300000, guid: 8d212379418b8e7498457d55764ad824, type: 3}
+  giggle3: {fileID: 8300000, guid: 158a589763f628b42b5efd3f0b5ade05, type: 3}
+  giggle4: {fileID: 8300000, guid: 16fc4052d4abd8746b16c95eb16a82e3, type: 3}
+  myAudioSource: {fileID: 628422995}
+  coll: {fileID: 5358633774462413067}
+  cam: {fileID: 0}
+  maxTapTimeInterval: 2
+  minTapTimeInterval: 0.4
+  triggerCount: 5
 --- !u!114 &1627480421
 MonoBehaviour:
   m_ObjectHideFlags: 0
