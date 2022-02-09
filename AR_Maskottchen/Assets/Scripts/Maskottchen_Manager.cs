@@ -22,7 +22,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField]
     Image satImg, hunImg, tirImg;
 
-    private static Animator animator;
+    public static Animator animator;
 
     #endregion
     
