@@ -5,7 +5,9 @@ using Maskottchen.Manager;
 
 public class Test_Füttern : MonoBehaviour
 {
+    [SerializeField]
+    Maskottchen_Manager maskottchenManager;
     public void Click(){
-        Maskottchen_Manager.feeding = true;
+        maskottchenManager.Feed();
     } 
 }

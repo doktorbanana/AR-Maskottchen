@@ -153,6 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ae8e5acdbf38754b93026bdeb2ae87e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sleeping: 0
+  wakingUp: 0
+  feeding: 0
+  petting: 0
   lauthingSound: {fileID: 8300000, guid: 5c7a5edc8b228874385cde6938d4fe62, type: 3}
   myAudioSource: {fileID: 628422995, guid: e9c9a2efd9e2e224bb7941b549fa2f24, type: 3}
   sleepTime: 20
@@ -1919,6 +1923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttons: {fileID: 393995483}
   fill: {fileID: 1884158534}
+  maskottchenManager: {fileID: 24765189}
 --- !u!1 &1884158532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2704,6 +2709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148d6f04c46aa0b408062b83128b77d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maskottchenManager: {fileID: 24765189}
 --- !u!1 &2124028187
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,7 +48,7 @@ public class PetActivation : MonoBehaviour
     void TapPetTouch()
     {
         // Prüfen, ob Maskottchen gerade Idle ist
-        if(!Maskottchen_Manager.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if(true)
         {
             return;
         }
@@ -107,7 +107,7 @@ public class PetActivation : MonoBehaviour
     void TapPetMouse()
     {
         // Prüfen, ob Maskottchen gerade Idle ist
-        if(!Maskottchen_Manager.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if(true)
         {
             return;
         }

@@ -11,9 +11,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     #region Variables
     public static float hungry, unsatisfied, tired;
 
-    public static bool sleeping = false, feeding = false, petting = false, wakingUp = false;
-
-    bool coroutineRunning = false;
+    private string letzteAktion = "Idle", eigeneLetzeAktion = "Idle";
 
     [SerializeField]
     private AudioClip lauthingSound;
@@ -36,7 +34,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
     GameObject maskottchen;
 
-    public static Animator animator;
+    static Animator animator;
 
     #endregion
     
@@ -55,8 +53,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
             startanleitung.SetActive(true);
             return;
         }
-
-                    
+ 
         // GUI anpassen
         buttons.SetActive(true);
         zustände.SetActive(true);
@@ -66,81 +63,88 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         hungry += Time.deltaTime / 60;
         unsatisfied += Time.deltaTime / 60;
 
-        hungry = Mathf.Clamp(hungry, 0, 1);
-        unsatisfied = Mathf.Clamp(unsatisfied, 0, 1);
-        tired = Mathf.Clamp(tired, 0, 1);
-
-        //Inaktive Zeit messen
-        inactiveTime += Time.deltaTime;
-
         // Schlafen, wenn zu müde oder nichts passiert
         if(inactiveTime > sleepTime || tired >= 1){
-            sleeping = true;
-        }
-
-        if(sleeping){
-            Sleep();
+             Sleep();
             wakeUpButton.SetActive(true);
         }else{
             wakeUpButton.SetActive(false);
             tired += Time.deltaTime / 60;
         }
 
-        // Aktionen ausführen, wenn sich die entsprechenden bools ändern
-        if(feeding && !coroutineRunning) StartCoroutine(Feed());
-        if(petting && !coroutineRunning) StartCoroutine(Pet());
-        if(wakingUp && !coroutineRunning) WakeUp();
+        //Alle Zustände auf einen Bereich zwischen 0 und 1 beschränken
+        hungry = Mathf.Clamp(hungry, 0, 1);
+        unsatisfied = Mathf.Clamp(unsatisfied, 0, 1);
+        tired = Mathf.Clamp(tired, 0, 1);
+        
+        //Inaktive Zeit messen
+        inactiveTime += Time.deltaTime;       
 
-        //GUI anpasse
+        //Zustandicons anpassen
         SyncGUI();
+
+        // Die letze Aktion wird über Photon zwischen den verschiedenen Spielern gesynct. 
+        // Prüfen, ob sich die letzte Aktion von der vorletzten Aktion unterscheidet. Wenn ja, dann die letzte Aktion durchführen. 
+        if(!(letzteAktion == eigeneLetzeAktion)){
+            switch(letzteAktion){
+                case "Sleep":
+                    Sleep();
+                    break;
+                case "WakeUp":
+                    WakeUp();
+                    break;
+                case "Feed":
+                    Feed();
+                    break;
+                case "Pet":
+                    Pet();
+                    break;
+            }
+        }
     }
     #endregion
 
-    #region Public Methods
+    #region Aktionen: Schlafen, Aufwachen, Füttern,  Kitzeln
     public void Sleep(){
 
         // Prüfen ob Maskottchen gerade Idle ist
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("Catch") || animator.GetCurrentAnimatorStateInfo(0).IsName("Laugh"))
             return;
 
-        sleeping = true;
 
         // Ownership über dieses Objekt übernehmen, damit Daten geschrieben werden können
-        photonView.RequestOwnership();
-
+        phoView.RequestOwnership();
+        
         // Wenn ja, Animation starten
         tired -= Time.deltaTime / 20;
         animator.SetTrigger("Sleep");
+        
+        letzteAktion = "Sleep";
+
     }
 
-    public static void WakeUp(){
+    public void WakeUp(){
         
         // Prüfen, ob Maskottchen gerade schläft
         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Sleep"))
             return;
-        
-        wakingUp = true;
 
         // Ownership über dieses Objekt übernehmen, damit Daten geschrieben werden können
         phoView.RequestOwnership();
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
-        sleeping = false;
-        animator.SetTrigger("Idle");
 
-        wakingUp = false;
+        animator.SetTrigger("Idle");  
+        letzteAktion = "WakeUp";
     }
 
-    public IEnumerator Feed(){
+    public void Feed(){
 
         // Prüfen, ob Maskottchen gerade Idle ist
         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            yield return null;
-                
-        feeding = true;
-        coroutineRunning = true;
-
+            return;
+        
 
        // Ownership über dieses Objekt übernehmen, damit Daten geschrieben werden können
         phoView.RequestOwnership();
@@ -148,25 +152,16 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
         hungry -= 0.3f;
-
         animator.SetTrigger("Catch");
         
-        // Auf Ende der Animation warten
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+        letzteAktion = "Feed";
 
-        // Essen wieder freigeben
-        feeding = false;
-        coroutineRunning = false;
     }
 
-    public IEnumerator Pet(){
+    public void Pet(){
         // Prüfen, ob Maskottchen gerade Idle ist
         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            yield return null;
-        
-        petting = true;
-        
-        coroutineRunning = true;
+            return;
 
         // Ownership über dieses Objekt übernehmen, damit Daten geschrieben werden können
         phoView.RequestOwnership();
@@ -176,18 +171,16 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         unsatisfied -= 0.3f;
         animator.SetTrigger("Laugh");
 
+        // Audio
         myAudioSource.clip = lauthingSound;
         myAudioSource.Play();
 
-
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
-
-        //Streicheln wieder freigeben
-        petting = false;  
-
-        coroutineRunning = false;
+        letzteAktion = "Pet";
     }
 
+    #endregion
+
+    #region Weitere Methoden
     void SyncGUI(){
         satImg.fillAmount = 1 - unsatisfied;
         tirImg.fillAmount = 1 - tired;
@@ -219,10 +212,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)
         {
             // We own this player: send the others our data
-            stream.SendNext(feeding);
-            stream.SendNext(petting);
-            stream.SendNext(wakingUp);
-            stream.SendNext(sleeping);
+            stream.SendNext(letzteAktion);
             stream.SendNext(hungry);
             stream.SendNext(unsatisfied);
             stream.SendNext(tired);
@@ -230,13 +220,11 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             // Network player, receive data
-           feeding = (bool)stream.ReceiveNext();
-           petting = (bool)stream.ReceiveNext();
-           wakingUp = (bool)stream.ReceiveNext();
-           sleeping = (bool)stream.ReceiveNext();
-           hungry = (float)stream.ReceiveNext();
-           unsatisfied = (float)stream.ReceiveNext();
-           tired = (float)stream.ReceiveNext();
+            
+            this.letzteAktion = (string)stream.ReceiveNext();
+            hungry = (float)stream.ReceiveNext();
+            unsatisfied = (float)stream.ReceiveNext();
+            tired = (float)stream.ReceiveNext();
         }
     }
 

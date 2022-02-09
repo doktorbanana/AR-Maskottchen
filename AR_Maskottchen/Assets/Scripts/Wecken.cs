@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Maskottchen.Manager;
 
 
 public class Wecken : MonoBehaviour
@@ -16,6 +17,8 @@ public class Wecken : MonoBehaviour
     private string device;
     AudioClip recordedClip;
     
+    [SerializeField]
+    Maskottchen_Manager maskottchenManager;
     
 
 
@@ -40,7 +43,7 @@ public class Wecken : MonoBehaviour
             currentscale += GetAmplitude() /10;
             fill.rectTransform.localScale = new Vector2(1, currentscale);
         }else{
-            Maskottchen.Manager.Maskottchen_Manager.WakeUp();
+            maskottchenManager.WakeUp();
             this.gameObject.SetActive(false);
             buttons.SetActive(true);
         }

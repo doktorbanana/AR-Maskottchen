@@ -77,6 +77,7 @@ public override void OnPlayerLeftRoom(Player other)
     {   
         //Zustände des Maskottchens speichern
         SaveGame();
+        
         //Raum verlassen
         PhotonNetwork.LeaveRoom();
     }
@@ -97,9 +98,7 @@ public override void OnPlayerLeftRoom(Player other)
     }
 
     void SaveGame(){
-        // Speichern der Zustände in Firebase
-        float tired = Maskottchen_Manager.tired;
-        
+        // Speichern der Zustände in Firebase        
         firebaseDBManager.UpdateGameState(Maskottchen_Manager.hungry, Maskottchen_Manager.unsatisfied, Maskottchen_Manager.tired);
     }
 
