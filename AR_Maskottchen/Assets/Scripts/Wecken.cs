@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Maskottchen.Manager;
+using Photon.Pun;
 
 
 public class Wecken : MonoBehaviour
@@ -40,10 +41,10 @@ public class Wecken : MonoBehaviour
         // Die Länge des Ladebalkens soll der Summe der gemessenen Amplituden entsprechen
 
         if(currentscale < 1){
-            currentscale += GetAmplitude() /10;
+            currentscale += GetAmplitude() / 10;
             fill.rectTransform.localScale = new Vector2(1, currentscale);
         }else{
-            maskottchenManager.WakeUp();
+            maskottchenManager.gameObject.GetComponent<PhotonView>().RPC("WakeUp", RpcTarget.All);
             this.gameObject.SetActive(false);
             buttons.SetActive(true);
         }
