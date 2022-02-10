@@ -14,6 +14,10 @@ namespace Maskottchen.Database
     {
         DatabaseReference reference;
         Firebase.FirebaseApp app;
+        Debug.Log("Starte Async für speichern...");
+        gameState.müde = tired;
+        gameState.zufrieden = unsatisfied;
+        gameState.food = hungry;
 
         public static GameState gameState = new GameState();
         void Start()
