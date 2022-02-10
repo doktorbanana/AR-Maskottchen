@@ -90,7 +90,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     public void Sleep(){
 
         // Prüfen ob Maskottchen gerade Idle ist
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Catch") || animator.GetCurrentAnimatorStateInfo(0).IsName("Laugh") || waitingForFood)
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("EndFeeding") || animator.GetCurrentAnimatorStateInfo(0).IsName("Laugh") || waitingForFood)
             return;
         
         sleeping = true;
@@ -126,9 +126,10 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
             return;
         
         waitingForFood = true;
-
+        Debug.Log("Test");
         inactiveTime = 0;
-        animator.SetTrigger("wait");
+        animator.SetTrigger("StartFeeding");
+        
 
         //Audio
         maskottchen.GetComponent<AudioSource>().clip = spawnSound;
@@ -148,7 +149,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         inactiveTime = 0;
         hungry -= 0.2f;
         waitingForFood = false;
-        animator.SetTrigger("Catch");
+        animator.SetTrigger("EndFeeding");
 
         //Audio
         maskottchen.GetComponent<AudioSource>().clip = eatingSound;
