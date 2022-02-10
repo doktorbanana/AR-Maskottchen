@@ -1,9 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class FoodController : MonoBehaviour
 {
+    public GameObject maskottchenmanager;
+    public GameObject maskottchen;
+
+    [SerializeField]
+    private AudioClip eatingSound;
+
+    private void Start()
+    {
+        maskottchenmanager = GameObject.FindWithTag("MaskottchenManager");
+        maskottchen = GameObject.FindWithTag("Maskottchen");
+    }
+
 
     private void Update()
     {
@@ -19,8 +32,12 @@ public class FoodController : MonoBehaviour
             gameObject.SetActive(false);
 
             //Audio essen
+            maskottchen.GetComponent<AudioSource>().clip = eatingSound;
+            maskottchen.GetComponent<AudioSource>().Play();
 
             //Zustand Hungry füllen
+            //maskottchenmanager.GetComponent<PhotonView>().hungry -= 0.3f; ------------------------wie bekomme ich Variable hungry bzw. inactiveTime von maskottchenmanager?---------------------------
+            //maskottchenmanager.GetComponent<PhotonView>().inactiveTime = 0;
         }
     }
 }
