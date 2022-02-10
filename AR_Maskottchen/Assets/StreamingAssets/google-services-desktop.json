@@ -30,6 +30,13 @@
             {
               "client_id": "819407358116-23f1u2cjtl0ti91tqvht59e6nlcfaeei.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "819407358116-9o51gno9uoaa8v9fc74uvk73vghhcfi0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.HSD.AR-Maskottchen"
+              }
             }
           ]
         }
