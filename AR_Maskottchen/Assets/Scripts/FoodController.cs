@@ -8,9 +8,6 @@ public class FoodController : MonoBehaviour
     public GameObject maskottchenmanager;
     public GameObject maskottchen;
 
-    [SerializeField]
-    private AudioClip eatingSound;
-
     private void Start()
     {
         maskottchenmanager = GameObject.FindWithTag("MaskottchenManager");
@@ -33,10 +30,6 @@ public class FoodController : MonoBehaviour
 
             //Animation
             maskottchenmanager.GetComponent<PhotonView>().RPC("Feed", Photon.Pun.RpcTarget.All);
-
-            //Audio essen
-            maskottchen.GetComponent<AudioSource>().clip = eatingSound;
-            maskottchen.GetComponent<AudioSource>().Play();
         }
     }
 }
