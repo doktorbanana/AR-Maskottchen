@@ -31,6 +31,6 @@ public class FoodSpawner : MonoBehaviour
         Instantiate(food, pos + camera.forward * 0.2f, Quaternion.identity);
 
         //Animation
-        maskottchenmanager.GetComponent<PhotonView>().RPC("Feed", Photon.Pun.RpcTarget.All);
+        maskottchenmanager.GetComponent<PhotonView>().RPC("WaitingForFood", Photon.Pun.RpcTarget.All);
     }
 }
