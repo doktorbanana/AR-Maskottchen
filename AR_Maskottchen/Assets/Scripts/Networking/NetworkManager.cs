@@ -18,6 +18,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     #region Private Variables
 
+    [SerializeField]
     private FirebaseDBManager firebaseDBManager;
 
     #endregion
@@ -27,13 +28,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(Random.Range(-1,1),0,-5), Quaternion.identity, 0);
-        firebaseDBManager = GameObject.FindGameObjectWithTag("FirebaseDBManager").GetComponent<FirebaseDBManager>();
     }
 
     void OnApplicationQuit()
     {
         // Zustand des Maskottchens  speichern
         SaveGame();
+    }
+
+    void OnApplicationFocus(bool focusState){
+        if(!focusState) SaveGame();
+
+    }
+
+    void OnApplicationPause(bool pauseState){
+        if(pauseState) SaveGame();
     }
 
     #endregion
@@ -98,7 +107,8 @@ public override void OnPlayerLeftRoom(Player other)
     }
 
     void SaveGame(){
-        // Speichern der Zustände in Firebase       
+        // Speichern der Zustände in Firebase
+        Debug.Log("Versuche zu speichern...");       
         firebaseDBManager.UpdateGameState(Maskottchen_Manager.hungry, Maskottchen_Manager.unsatisfied, Maskottchen_Manager.tired);
     }
 

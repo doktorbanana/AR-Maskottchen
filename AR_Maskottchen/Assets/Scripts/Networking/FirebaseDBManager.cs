@@ -33,6 +33,7 @@ public class FirebaseDBManager : MonoBehaviour
 */
     public void UpdateGameState(float hungry, float unsatisfied, float tired)
     {
+        Debug.Log("Starte Async für speichern...");
         gameState.müde = tired;
         gameState.zufrieden = unsatisfied;
         gameState.food = hungry;
@@ -50,6 +51,8 @@ public class FirebaseDBManager : MonoBehaviour
                 reference.Child("gamestate").SetRawJsonValueAsync(json);
             }
         });
+
+        Debug.Log("Gespeichert...");
     }
 
     public static void GetGameState()
