@@ -37,12 +37,12 @@ public class PetActivation : MonoBehaviour
         //TapPetMouse();
 
         //wenn oft genug getapt wurde, wird Pet() Animation getriggert
-        /*if (tapCounter == triggerCount)
+        if (tapCounter == triggerCount)
         {
             maskottchenmanager.GetComponent<PhotonView>().RPC("Pet", Photon.Pun.RpcTarget.All);
             Debug.Log("Pet Trigger");
             tapCounter = 1;
-        }*/
+        }
     }
 
 
@@ -68,12 +68,11 @@ public class PetActivation : MonoBehaviour
                 
                 //prüfen, ob letzter Tap zu lange her ist
                 //tapCounter startet mit 1, weil Wert erst beim 2. klicken ansteigt (tapCounter++)
-                if(touch.phase == TouchPhase.Began/* && Time.time < lastTapTime + maxTapTimeInterval*/)
+                if(touch.phase == TouchPhase.Began && Time.time < lastTapTime + maxTapTimeInterval)
                 {
-                    //tapCounter++;
-                    maskottchenmanager.GetComponent<PhotonView>().RPC("Pet", Photon.Pun.RpcTarget.All);
+                    tapCounter++;
                 }
-                /*else{
+                else{
                     tapCounter = 1;
                 }
 
@@ -99,7 +98,7 @@ public class PetActivation : MonoBehaviour
                     myAudioSource.Play();
                 }
                 lastTapTime = Time.time;
-                Debug.Log(tapCounter);*/
+               // Debug.Log(tapCounter + " " + lastTapTime);
             }
         }
     }
