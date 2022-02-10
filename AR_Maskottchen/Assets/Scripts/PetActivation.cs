@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Maskottchen.Manager;
-
+using Photon.Pun;
 public class PetActivation : MonoBehaviour
 {
     public Maskottchen_Manager maskottchen_ManagerScript;
@@ -11,6 +11,7 @@ public class PetActivation : MonoBehaviour
     public AudioSource myAudioSource;
     public Collider coll;
     public Camera cam;
+    public GameObject maskottchenmanager;
 
     [SerializeField]
     private float maxTapTimeInterval = 1.0f;
@@ -24,7 +25,7 @@ public class PetActivation : MonoBehaviour
 
     void Start()
     {
-        maskottchen_ManagerScript = GetComponent<Maskottchen_Manager>();
+        maskottchenmanager = GameObject.FindWithTag("MaskottchenManager");
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
  
@@ -32,13 +33,13 @@ public class PetActivation : MonoBehaviour
     void Update()
     {
 
-        TapPetTouch();
-        //TapPetMouse();
+        //TapPetTouch();
+        TapPetMouse();
 
         //wenn oft genug getapt wurde, wird Pet() Animation getriggert
         if (tapCounter == triggerCount)
         {
-            maskottchen_ManagerScript.Pet();
+            maskottchenmanager.GetComponent<PhotonView>().RPC("Pet", Photon.Pun.RpcTarget.All);
             Debug.Log("Pet Trigger");
             tapCounter = 1;
         }
