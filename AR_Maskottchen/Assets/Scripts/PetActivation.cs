@@ -98,7 +98,7 @@ public class PetActivation : MonoBehaviour
                     myAudioSource.Play();
                 }
                 lastTapTime = Time.time;
-                Debug.Log(tapCounter + " " + lastTapTime);
+               // Debug.Log(tapCounter + " " + lastTapTime);
             }
         }
     }
