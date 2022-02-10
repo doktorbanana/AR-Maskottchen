@@ -1593,6 +1593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2123880147}
   - component: {fileID: 2123880146}
+  - component: {fileID: 2123880148}
   m_Layer: 0
   m_Name: Launcher
   m_TagString: Untagged
@@ -1621,6 +1622,7 @@ MonoBehaviour:
   startPos: {x: 51.17963, y: 6.830755}
   maxDist: {x: 0.0001, y: 0.0001}
   gpsFake: 1
+  firebaseManager: {fileID: 2123880148}
 --- !u!4 &2123880147
 Transform:
   m_ObjectHideFlags: 0
@@ -1635,3 +1637,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2123880148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123880145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e37344296ba5614e8fc631ca6ceae49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -126,7 +126,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
-        hungry -= 0.3f;
+        hungry -= 0.2f;
         animator.SetTrigger("Catch");
         
     }
