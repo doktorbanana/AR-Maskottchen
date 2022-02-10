@@ -19,12 +19,12 @@ MonoBehaviour:
       m_GuidLow: 4746962412976170336
       m_GuidHigh: 822554640604213695
     m_SerializedTextureGuid:
-      m_GuidLow: 1883666557340120448
-      m_GuidHigh: 6538506267860723209
-    m_Size: {x: 0.2132091, y: 0.28}
+      m_GuidLow: 7089939147479137704
+      m_GuidHigh: 209120194615056747
+    m_Size: {x: 0.6113281, y: 1}
     m_SpecifySize: 1
     m_Name: Leos_Mascot
-    m_Texture: {fileID: 2800000, guid: f98a758020c01a2409e680e1ce70bd5a, type: 3}
+    m_Texture: {fileID: 2800000, guid: 2ca13da8861762646b196483b5f1e602, type: 3}
   - m_SerializedGuid:
       m_GuidLow: 4649567060694951009
       m_GuidHigh: 5860821670586511772
