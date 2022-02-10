@@ -14,8 +14,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     bool sleeping;
     
     [SerializeField]
-    private AudioClip lauthingSound;
-    //public AudioSource myAudioSource;
+    private AudioClip lauthingSound, spawnSound;
     
     [SerializeField]
     [Tooltip("Wie viele Sekunden muss der Spieler inaktiv sein, damit das Maskottchen einschläft?")]       
@@ -128,6 +127,10 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
         inactiveTime = 0;
         hungry -= 0.3f;
         animator.SetTrigger("Catch");
+
+        //Audio
+        maskottchen.GetComponent<AudioSource>().clip = spawnSound;
+        maskottchen.GetComponent<AudioSource>().Play();
         
     }
 

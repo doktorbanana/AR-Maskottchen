@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lauthingSound: {fileID: 8300000, guid: 5c7a5edc8b228874385cde6938d4fe62, type: 3}
-  myAudioSource: {fileID: 628422995, guid: e9c9a2efd9e2e224bb7941b549fa2f24, type: 3}
+  spawnSound: {fileID: 8300000, guid: 263f94abb1f45ff44b679bde65b690d5, type: 3}
   sleepTime: 20
   wakeUpButton: {fileID: 2010826598}
   satImg: {fileID: 1986669987}
@@ -3345,6 +3345,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   food: {fileID: 1697960885617032722, guid: 0e4c19ac675fbbe49aca04e1ffbf0907, type: 3}
+  maskottchenmanager: {fileID: 0}
+  spawnSound: {fileID: 8300000, guid: 263f94abb1f45ff44b679bde65b690d5, type: 3}
 --- !u!1 &8365124123197239279
 GameObject:
   m_ObjectHideFlags: 0

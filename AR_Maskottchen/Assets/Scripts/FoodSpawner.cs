@@ -1,10 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class FoodSpawner : MonoBehaviour
 {
     public GameObject food;
+    public GameObject maskottchenmanager;
+    
+    [SerializeField]
+    private AudioClip spawnSound;
+
+    GameObject maskottchen;
+
+    void Start()
+    {
+        maskottchenmanager = GameObject.FindWithTag("MaskottchenManager");
+        maskottchen = GameObject.FindWithTag("Maskottchen");
+    }
 
     public void spawnFood()
     {
@@ -16,5 +29,8 @@ public class FoodSpawner : MonoBehaviour
         var camera = Camera.main.transform;
         Vector3 pos = camera.position + new Vector3(0f,-0.2f,0f);
         Instantiate(food, pos + camera.forward * 0.2f, Quaternion.identity);
+
+        //Animation
+        maskottchenmanager.GetComponent<PhotonView>().RPC("Feed", Photon.Pun.RpcTarget.All);
     }
 }

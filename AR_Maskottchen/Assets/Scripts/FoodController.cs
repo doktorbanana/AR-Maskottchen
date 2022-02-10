@@ -17,6 +17,10 @@ public class FoodController : MonoBehaviour
         if (other.gameObject.CompareTag("Maskottchen"))
         {
             gameObject.SetActive(false);
+
+            //Audio essen
+
+            //Zustand Hungry füllen
         }
     }
 }
