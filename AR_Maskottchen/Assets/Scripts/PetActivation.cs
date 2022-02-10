@@ -33,8 +33,8 @@ public class PetActivation : MonoBehaviour
     void Update()
     {
 
-        //TapPetTouch();
-        TapPetMouse();
+        TapPetTouch();
+        //TapPetMouse();
 
         //wenn oft genug getapt wurde, wird Pet() Animation getriggert
         if (tapCounter == triggerCount)
