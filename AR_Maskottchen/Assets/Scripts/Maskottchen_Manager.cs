@@ -11,10 +11,10 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     #region Variables
     public static float hungry, unsatisfied, tired;
 
-    bool sleeping;
+    bool sleeping, waitingForFood;
     
     [SerializeField]
-    private AudioClip lauthingSound, spawnSound;
+    private AudioClip yawningSound, lauthingSound, spawnSound, eatingSound;
     
     [SerializeField]
     [Tooltip("Wie viele Sekunden muss der Spieler inaktiv sein, damit das Maskottchen einschläft?")]       
@@ -90,8 +90,9 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     public void Sleep(){
 
         // Prüfen ob Maskottchen gerade Idle ist
-        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Catch") || animator.GetCurrentAnimatorStateInfo(0).IsName("Laugh"))
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Catch") || animator.GetCurrentAnimatorStateInfo(0).IsName("Laugh") || waitingForFood)
             return;
+        
         sleeping = true;
 
         // Wenn ja, Animation starten
@@ -111,25 +112,46 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
-
         animator.SetTrigger("Idle");  
+
+        //Audio
+        maskottchen.GetComponent<AudioSource>().clip = yawningSound;
+        maskottchen.GetComponent<AudioSource>().Play();
+    }
+
+
+    [PunRPC]
+    public void WaitingForFood(){
+         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            return;
+        
+        waitingForFood = true;
+
+        inactiveTime = 0;
+        animator.SetTrigger("wait");
+
+        //Audio
+        maskottchen.GetComponent<AudioSource>().clip = spawnSound;
+        maskottchen.GetComponent<AudioSource>().Play();
+
     }
 
     [PunRPC]
     public void Feed(){
 
         // Prüfen, ob Maskottchen gerade Idle ist
-        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("WaitingForFood"))
             return;
         
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
         hungry -= 0.2f;
+        waitingForFood = false;
         animator.SetTrigger("Catch");
 
         //Audio
-        maskottchen.GetComponent<AudioSource>().clip = spawnSound;
+        maskottchen.GetComponent<AudioSource>().clip = eatingSound;
         maskottchen.GetComponent<AudioSource>().Play();
         
     }
@@ -137,7 +159,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void Pet(){
         // Prüfen, ob Maskottchen gerade Idle ist
-        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || waitingForFood)
             return;
         
 
