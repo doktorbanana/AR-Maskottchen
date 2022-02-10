@@ -147,7 +147,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
-        hungry -= 0.2f;
+        hungry -= 0.4f;
         waitingForFood = false;
         animator.SetTrigger("EndFeeding");
 
@@ -166,7 +166,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
         // Wenn ja, Variablen anpassen und Animation starten
         inactiveTime = 0;
-        unsatisfied -= 0.3f;
+        unsatisfied -= 1f;
         animator.SetTrigger("Laugh");
 
         // Audio
