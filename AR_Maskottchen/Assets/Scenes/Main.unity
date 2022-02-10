@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1474,6 +1474,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5358633774462413067, guid: f4fb00ddda97c734da7ec8ec4f3a5003, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4fb00ddda97c734da7ec8ec4f3a5003, type: 3}
 --- !u!1 &1153176589 stripped
@@ -2841,6 +2845,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7531964091345939775}
+        m_TargetAssemblyTypeName: FoodSpawner, Assembly-CSharp
+        m_MethodName: spawnFood
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2057310279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3300,6 +3316,7 @@ GameObject:
   - component: {fileID: 2846776496559928064}
   - component: {fileID: 5554573968977390534}
   - component: {fileID: 7531964091345939774}
+  - component: {fileID: 7531964091345939775}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -3315,6 +3332,19 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7531964091345939773}
   m_Enabled: 1
+--- !u!114 &7531964091345939775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7531964091345939773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf3e58e687315141a5499259f0002a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  food: {fileID: 1697960885617032722, guid: 0e4c19ac675fbbe49aca04e1ffbf0907, type: 3}
 --- !u!1 &8365124123197239279
 GameObject:
   m_ObjectHideFlags: 0
