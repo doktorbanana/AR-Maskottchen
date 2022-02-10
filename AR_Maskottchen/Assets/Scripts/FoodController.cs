@@ -31,13 +31,12 @@ public class FoodController : MonoBehaviour
         {
             gameObject.SetActive(false);
 
+            //Animation
+            maskottchenmanager.GetComponent<PhotonView>().RPC("Feed", Photon.Pun.RpcTarget.All);
+
             //Audio essen
             maskottchen.GetComponent<AudioSource>().clip = eatingSound;
             maskottchen.GetComponent<AudioSource>().Play();
-
-            //Zustand Hungry füllen
-            //maskottchenmanager.GetComponent<PhotonView>().hungry -= 0.3f; ------------------------wie bekomme ich Variable hungry bzw. inactiveTime von maskottchenmanager?---------------------------
-            //maskottchenmanager.GetComponent<PhotonView>().inactiveTime = 0;
         }
     }
 }
