@@ -1619,7 +1619,7 @@ MonoBehaviour:
   locationProgress: {fileID: 375923475}
   locationFailed: {fileID: 770160555}
   gpsDeactived: {fileID: 222187717}
-  startPos: {x: 51.17963, y: 6.830755}
+  startPos: {x: 51.247158, y: 6.79167}
   maxDist: {x: 0.0001, y: 0.0001}
   gpsFake: 1
   firebaseManager: {fileID: 2123880148}
