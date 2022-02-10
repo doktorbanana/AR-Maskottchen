@@ -157,7 +157,7 @@ MonoBehaviour:
   lauthingSound: {fileID: 8300000, guid: 5c7a5edc8b228874385cde6938d4fe62, type: 3}
   spawnSound: {fileID: 8300000, guid: 263f94abb1f45ff44b679bde65b690d5, type: 3}
   eatingSound: {fileID: 8300000, guid: 1edf11a8909d2e048afc92853c3c53d0, type: 3}
-  sleepTime: 20
+  sleepTime: 25
   wakeUpButton: {fileID: 2010826598}
   satImg: {fileID: 1986669987}
   hunImg: {fileID: 606855349}
@@ -951,7 +951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &610950451
 RectTransform:
   m_ObjectHideFlags: 0
