@@ -140,7 +140,7 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
     public void Feed(){
 
         // Prüfen, ob Maskottchen gerade Idle ist
-        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("WaitingForFood"))
+        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("StartFeeding"))
             return;
         
 
