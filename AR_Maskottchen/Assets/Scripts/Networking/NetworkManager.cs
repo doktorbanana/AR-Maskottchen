@@ -19,7 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     #region Private Variables
 
     [SerializeField]
-    private FirebaseDBManager firebaseDBManager;
+    private FirebaseDBManager firebaseManager;
 
     #endregion
 
@@ -108,8 +108,7 @@ public override void OnPlayerLeftRoom(Player other)
 
     void SaveGame(){
         // Speichern der Zustände in Firebase
-        Debug.Log("Versuche zu speichern...");       
-        firebaseDBManager.UpdateGameState(Maskottchen_Manager.hungry, Maskottchen_Manager.unsatisfied, Maskottchen_Manager.tired);
+       firebaseManager.UpdateGameState(Maskottchen_Manager.hungry, Maskottchen_Manager.unsatisfied, Maskottchen_Manager.tired);
     }
 
 

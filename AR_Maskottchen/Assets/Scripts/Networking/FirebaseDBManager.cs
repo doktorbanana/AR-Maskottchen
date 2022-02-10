@@ -14,17 +14,16 @@ namespace Maskottchen.Database
     {
         DatabaseReference reference;
         Firebase.FirebaseApp app;
-        Debug.Log("Starte Async für speichern...");
-        gameState.müde = tired;
-        gameState.zufrieden = unsatisfied;
-        gameState.food = hungry;
-
+        
         public static GameState gameState = new GameState();
+
+        
+
         void Start()
         {
-            FirebaseCheck();
+            //FirebaseCheck();
             reference = FirebaseDatabase.DefaultInstance.RootReference;
-            Debug.Log(reference);
+            //Debug.Log(reference);
             //FirebaseDatabase.DefaultInstance.GetReference("gamestate").ValueChanged += HandleUpdateGameState;
         }
 
@@ -59,7 +58,7 @@ namespace Maskottchen.Database
             });
         }
 
-        public static void GetGameState()
+        public void GetGameState()
         {
             FirebaseDatabase.DefaultInstance.GetReference("gamestate").GetValueAsync().ContinueWithOnMainThread(task =>
             {

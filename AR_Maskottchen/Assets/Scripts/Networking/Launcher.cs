@@ -38,6 +38,9 @@ namespace Maskottchen.Networking{
 
         bool isConnecting;
 
+        [SerializeField]
+        FirebaseDBManager firebaseManager;
+
         #endregion
 
         #region Monobehaviour Callbacks
@@ -198,7 +201,7 @@ namespace Maskottchen.Networking{
         void LoadSettings(){
             
             // Letzten Gamestate laden
-            FirebaseDBManager.GetGameState();
+           firebaseManager.GetGameState();
         }
 
         #endregion
@@ -247,6 +250,7 @@ namespace Maskottchen.Networking{
                 PhotonNetwork.LoadLevel("Main");
 
                 // Werte des Maskottchens (Hunger, Zufriedenheit, Müdigkeit) laden
+
                 LoadSettings();
 
             }
