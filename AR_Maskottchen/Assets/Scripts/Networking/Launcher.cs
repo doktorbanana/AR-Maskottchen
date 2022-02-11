@@ -198,12 +198,6 @@ namespace Maskottchen.Networking{
             gpsDeactived.SetActive(false);
         }
 
-        void LoadSettings(){
-            
-            // Letzten Gamestate laden
-           firebaseManager.GetGameState();
-        }
-
         #endregion
 
         #region MonoBehaviourPunCallbacks Callbacks
@@ -248,10 +242,6 @@ namespace Maskottchen.Networking{
 
                 //Szene Laden
                 PhotonNetwork.LoadLevel("Main");
-
-                // Werte des Maskottchens (Hunger, Zufriedenheit, Müdigkeit) laden
-
-                LoadSettings();
 
             }
         }

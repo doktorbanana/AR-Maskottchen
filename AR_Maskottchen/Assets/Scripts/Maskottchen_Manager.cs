@@ -199,13 +199,13 @@ public class Maskottchen_Manager : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
-    #endregion
+        #endregion
 
 
-     #region IPunObservable implementation
+        #region IPunObservable implementation
 
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
 
         if (stream.IsWriting && PhotonNetwork.InRoom)

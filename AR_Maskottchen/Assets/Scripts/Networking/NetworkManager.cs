@@ -28,6 +28,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(Random.Range(-1,1),0,-5), Quaternion.identity, 0);
+            LoadSettings();
     }
 
     void OnApplicationQuit()
@@ -112,8 +113,16 @@ public override void OnPlayerLeftRoom(Player other)
     }
 
 
-    #endregion
+    void LoadSettings()
+    {
 
-}
+        // Letzten Gamestate laden
+        firebaseManager.GetGameState();
+    }
+
+
+        #endregion
+
+    }
 
 }
